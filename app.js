@@ -49,11 +49,23 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // var botInitiationText = "hi";
 // var botEndText = "end";
 
-// Ludmyla's einstein bot
+// Ludmyla's einstein bot from Jenna's account
 
-var customerOrgId = "00D5e000001N1pB"; // FSC Einstein Bot
-var customerButtonId = "5735e000000MNFi"; // FSC Einstein Bot
-var customerDeploymentId = "5725e000000MMGe"; // FSC Einstein Bot
+// var customerOrgId = "00D5e000001N1pB"; // FSC Einstein Bot
+// var customerButtonId = "5735e000000MNFi"; // FSC Einstein Bot
+// var customerDeploymentId = "5725e000000MMGe"; // FSC Einstein Bot
+// var customerApiVersion = 52;
+// var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com/chat"; // new
+// var slackBotToken = "xoxb-2250368327255-2250462246311-JuvRYDdoxVnPapOrOKvapcEe"; // Ludmyla's app token
+// var botInitiationText = "hey bot";
+// var botEndText = "end";
+
+
+// Ludmyla's bot from my account 
+
+var customerOrgId = "00D5e000002G70v"; // FSC Einstein Bot
+var customerButtonId = "5735e000000l4F6"; // FSC Einstein Bot
+var customerDeploymentId = "5725e000000l3au"; // FSC Einstein Bot
 var customerApiVersion = 52;
 var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com/chat"; // new
 var slackBotToken = "xoxb-2250368327255-2250462246311-JuvRYDdoxVnPapOrOKvapcEe"; // Ludmyla's app token
@@ -62,8 +74,6 @@ var botEndText = "end";
 
 
 var orgCommunityUrl = "https://botpilotsb-ewecitscr6.cs23.force.com/sample/s/article/";
-
-
 
 app.post('/slack_interactive', jsonParser, function (req, res) {
   // receives this request when an end user clicks on buttons
