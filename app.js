@@ -180,18 +180,6 @@ function handleChallenge(req, res) {
   res.json(challenge_json);
 }
 
-// app.event("app_home_opened", async ({ event, say, user, context }) => {
-//   try {
-//     await app.client.views.publish({
-//       token: context.botToken,
-//       user_id: event.user,
-//       view: homeTab
-//     });
-//   } catch (e) {
-//     console.error(e);
-//   }
-// });
-
 app.post('/slack/events', async (req, res) => {
   switch (req.body.type) {
 
