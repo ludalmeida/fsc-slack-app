@@ -54,7 +54,7 @@ var customerButtonId = "5735e000000MNFi"; // FSC Einstein Bot
 var customerDeploymentId = "5725e000000MMGe"; // FSC Einstein Bot
 var customerApiVersion = 52;
 var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com/chat"; // new
-var slackBotToken = "xoxb-2250368327255-2250462246311-qtxs4iYaoTfC2nUFVHjSPwxm"; // Ludmyla's app token
+var slackBotToken = "xoxb-2250368327255-2250462246311-JuvRYDdoxVnPapOrOKvapcEe"; // Ludmyla's app token
 var botInitiationText = "hi";
 var botEndText = "end";
 
