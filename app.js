@@ -66,7 +66,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 var customerOrgId = "00D5e000002G70v"; // FSC Einstein Bot
 var customerButtonId = "5735e000000l4F6"; // FSC Einstein Bot
 var customerDeploymentId = "5725e000000l3au"; // FSC Einstein Bot
-var customerApiVersion = 52;
+var customerApiVersion = 50;
 var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com/chat"; // new
 var slackBotToken = "xoxb-2250368327255-2250462246311-JuvRYDdoxVnPapOrOKvapcEe"; // Ludmyla's app token
 var botInitiationText = "hey bot";
