@@ -13,7 +13,7 @@ var jsonParser = bodyParser.json()
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({ extended: true }))
 
-const homeTab = require("./views/homeTab");
+// const homeTab = require("./views/homeTab");
 
 
 // concierge org 62 org
@@ -167,17 +167,17 @@ function handleChallenge(req, res) {
   res.json(challenge_json);
 }
 
-app.event("app_home_opened", async ({ event, say, user, context }) => {
-  try {
-    await app.client.views.publish({
-      token: context.botToken,
-      user_id: event.user,
-      view: homeTab
-    });
-  } catch (e) {
-    console.error(e);
-  }
-});
+// app.event("app_home_opened", async ({ event, say, user, context }) => {
+//   try {
+//     await app.client.views.publish({
+//       token: context.botToken,
+//       user_id: event.user,
+//       view: homeTab
+//     });
+//   } catch (e) {
+//     console.error(e);
+//   }
+// });
 
 // start the server listening for requests
 app.listen(process.env.PORT || 3000,
