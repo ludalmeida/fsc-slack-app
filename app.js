@@ -13,7 +13,7 @@ var jsonParser = bodyParser.json()
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// const homeTab = require("./views/homeTab");
+const homeTab = require("./views/homeTab");
 
 
 // concierge org 62 org
@@ -51,26 +51,26 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // Ludmyla's einstein bot from Jenna's account
 
-// var customerOrgId = "00D5e000001N1pB"; // FSC Einstein Bot
-// var customerButtonId = "5735e000000MNFi"; // FSC Einstein Bot
-// var customerDeploymentId = "5725e000000MMGe"; // FSC Einstein Bot
-// var customerApiVersion = 52;
-// var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com/chat"; // new
-// var slackBotToken = "xoxb-2250368327255-2250462246311-JuvRYDdoxVnPapOrOKvapcEe"; // Ludmyla's app token
-// var botInitiationText = "hey bot";
-// var botEndText = "end";
-
-
-// Ludmyla's bot from my account 
-
-var customerOrgId = "00D5e000002G70v"; // FSC Einstein Bot
-var customerButtonId = "5735e000000l4F6"; // FSC Einstein Bot
-var customerDeploymentId = "5725e000000l3au"; // FSC Einstein Bot
-var customerApiVersion = 50;
+var customerOrgId = "00D5e000001N1pB"; // FSC Einstein Bot
+var customerButtonId = "5735e000000MNFi"; // FSC Einstein Bot
+var customerDeploymentId = "5725e000000MMGe"; // FSC Einstein Bot
+var customerApiVersion = 52;
 var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com"; // new
 var slackBotToken = "xoxb-2250368327255-2250462246311-JuvRYDdoxVnPapOrOKvapcEe"; // Ludmyla's app token
 var botInitiationText = "hey bot";
 var botEndText = "end";
+
+
+// Ludmyla's bot from my account 
+
+// var customerOrgId = "00D5e000002G70v"; // FSC Einstein Bot
+// var customerButtonId = "5735e000000l4F6"; // FSC Einstein Bot
+// var customerDeploymentId = "5725e000000l3au"; // FSC Einstein Bot
+// var customerApiVersion = 50;
+// var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com"; // new
+// var slackBotToken = "xoxb-2250368327255-2250462246311-JuvRYDdoxVnPapOrOKvapcEe"; // Ludmyla's app token
+// var botInitiationText = "hey bot";
+// var botEndText = "end";
 
 
 var orgCommunityUrl = "https://botpilotsb-ewecitscr6.cs23.force.com/sample/s/article/";
@@ -190,6 +190,47 @@ function handleChallenge(req, res) {
 //     console.error(e);
 //   }
 // });
+
+app.post('/slack/events', async (req, res) => {
+  switch (req.body.type) {
+
+    case 'url_verification': {
+      // verify Events API endpoint by returning challenge if present
+      res.send({ challenge: req.body.challenge });
+      break;
+    }
+
+    case 'event_callback': {
+      // Verify the signing secret
+      if (!signature.isVerified(req)) {
+        res.sendStatus(404);
+        return;
+      }
+
+      // Request is verified --
+      else {
+
+        const { type, user, channel, tab, text, subtype } = req.body.event;
+
+        // Triggered when the App Home is opened by a user
+        if (type === 'app_home_opened') {
+          // Display App Home
+          try {
+            await app.client.views.publish({
+              token: context.botToken,
+              user_id: trigger_id,
+              view: homeTab
+            });
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      }
+      break;
+    }
+    default: { res.sendStatus(404); }
+  }
+});
 
 // start the server listening for requests
 app.listen(process.env.PORT || 3000,
