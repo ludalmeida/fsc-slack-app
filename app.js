@@ -39,11 +39,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Gus DE Org
 
 var customerOrgId = "00D5e000001N1pB"; //old
-var customerButtonId = "5735e000000LtE9"; //old
-var customerDeploymentId = "5725e000000Lsg2"; //old
+var customerButtonId = "5735e000000MNFi"; //old
+var customerDeploymentId = "5725e000000MMGe"; //old
 var customerApiVersion = 52;
 var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com/chat"; //old
-var slackBotToken = "xoxb-2234145289425-2218934433381-5yFyb1xbErqgXbhCUQLw0LtP"; // Denise QM Slack app token
+var slackBotToken = "xoxb-2250368327255-2250462246311-6nulpaTEmTGT2qK1p62NBvMa"; // Denise QM Slack app token
 var botInitiationText = "hi";
 var botEndText = "end";
 
