@@ -215,15 +215,7 @@ app.post('/slack/events', async (req, res) => {
         // Triggered when the App Home is opened by a user
         if (type === 'app_home_opened') {
           // Display App Home
-          try {
-            await app.client.views.publish({
-              token: context.botToken,
-              user_id: trigger_id,
-              view: homeTab
-            });
-          } catch (e) {
-            console.error(e);
-          }
+          appHome.displayHome(user);
         }
       }
       break;
