@@ -196,12 +196,12 @@ app.post('/slack/events', async (req, res) => {
                   }
                 ]
               }
-            };
+            }
 
-            await axios.post(`${apiUrl}/views.publish`, qs.stringify(args));
+            await axios.post("https://slack.com/api/views.publish", qs.stringify(args));
 
           } catch (e) {
-            console.log(e);
+            console.log(e + "wtf is wrong");
           }
         }
       }
