@@ -135,82 +135,227 @@ function handleChallenge(req, res) {
   res.json(challenge_json);
 }
 
-app.post('/slack/events', async (req, res) => {
-  switch (req.body.type) {
+app.post("/slack/events", async (req, res) => {
+  
+  // Verify the signing secret
+  if (!signature.isVerified(req)) {
+    res.sendStatus(404);
+    return;
+  }
 
-    case 'url_verification': {
+  // console.log(req.body);
+
+  switch (req.body.type) {
+      
+    case "app_rate_limited": {
+      res.sendStatus(200);
+      break;
+    }
+
+    case "url_verification": {
       // verify Events API endpoint by returning challenge if present
       res.send({ challenge: req.body.challenge });
       break;
     }
 
-    case 'event_callback': {
-      // Verify the signing secret
-      if (!signature.isVerified(req)) {
-        res.sendStatus(404);
-        return;
-      }
+    case "event_callback": {
+      
+      res.sendStatus(200);
+      
+      const { type, user, channel, tab, text, subtype } = req.body.event;
 
-      // Request is verified --
-      else {
-
-        const { type, user, channel, tab, text, subtype } = req.body.event;
-
-        // Triggered when the App Home is opened by a user
-        if (type === 'app_home_opened') {
-          // Display App Home
-
-          try {
-            const args = {
-              token: process.env.SLACK_BOT_TOKEN,
-              user_id: user,
-              view: {
-                "type": "home",
-                "blocks": [
-                  {
-                    "type": "section",
-                    "text": {
-                      "type": "mrkdwn",
-                      "text": "A simple stack of blocks for the simple sample Block Kit Home tab."
-                    }
-                  },
-                  {
-                    "type": "actions",
-                    "elements": [
-                      {
-                        "type": "button",
-                        "text": {
-                          "type": "plain_text",
-                          "text": "Action A",
-                          "emoji": true
-                        }
-                      },
-                      {
-                        "type": "button",
-                        "text": {
-                          "type": "plain_text",
-                          "text": "Action B",
-                          "emoji": true
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-
-            await axios.post("https://slack.com/api/views.publish", qs.stringify(args));
-
-          } catch (e) {
-            console.log(e + "wtf is wrong");
-          }
+      // See https://api.slack.com/events
+      switch (type) {
+          
+        case "app_home_opened": {
+          displayHomeTab(user);
+          break;
         }
-      }
+
+        case "app_mention":
+        case "app_requested":
+        case "app_uninstalled":
+        case "call_rejected":
+        case "channel_archive":
+        case "channel_created":
+        case "channel_deleted":
+        case "channel_history_changed":
+        case "channel_id_changed":
+        case "channel_left":
+        case "channel_rename":
+        case "channel_shared":
+        case "channel_unarchive":
+        case "channel_unshared":
+        case "dnd_updated":
+        case "dnd_updated_user":
+        case "email_domain_changed":
+        case "emoji_changed":
+        case "file_change":
+        case "file_comment_added":
+        case "file_comment_deleted":
+        case "file_comment_edited":
+        case "file_created":
+        case "file_deleted":
+        case "file_public":
+        case "file_shared":
+        case "file_unshared":
+        case "grid_migration_finished":
+        case "grid_migration_started":
+        case "group_archive":
+        case "group_close":
+        case "group_deleted":
+        case "group_history_changed":
+        case "group_left":
+        case "group_open":
+        case "group_rename":
+        case "group_unarchive":
+        case "im_close":
+        case "im_created":
+        case "im_history_changed":
+        case "im_open":
+        case "invite_requested":
+        case "link_shared":
+        case "member_joined_channel":
+        case "member_left_channel": 
+        case "message": 
+        case "message.app_home": 
+        case "message.channels":
+        case "message.groups":
+        case "message.im":
+        case "message.mpim":
+        case "pin_added":
+        case "pin_removed":
+        case "reaction_added":
+        case "reaction_removed":
+        case "scope_denied":
+        case "scope_granted":
+        case "star_added":
+        case "star_removed":
+        case "subteam_created":
+        case "subteam_members_changed":
+        case "subteam_self_added":
+        case "subteam_self_removed":
+        case "subteam_updated":
+        case "team_access_granted":
+        case "team_access_revoked":
+        case "team_domain_change":
+        case "team_join":
+        case "team_rename":
+        case "tokens_revoked":
+        case "url_verification":
+        case "user_change":
+        case "user_resource_denied":
+        case "user_resource_granted":
+        case "user_resource_removed":
+        case "workflow_deleted":
+        case "workflow_published":
+        case "workflow_step_deleted":
+        case "workflow_step_execute":
+        case "workflow_unpublished": {
+          break;
+        }
+
+        default: {
+          break;
+        }
+      } // switch (type)
+      break;
+    } // case "event_callback"
+
+    default: {
+      res.sendStatus(404);
       break;
     }
-    default: { res.sendStatus(404); }
-  }
+  } // switch (req.body.type)
 });
+
+
+const displayHomeTab = async (user) => {
+  const args = {
+    token: process.env.SLACK_BOT_TOKEN,
+    user_id: user,
+    view: JSON.stringify(homeTab)
+  };
+
+  const result = await axios.post(`${apiUrl}/views.publish`, qs.stringify(args));
+};
+
+// app.post('/slack/events', async (req, res) => {
+//   switch (req.body.type) {
+
+//     case 'url_verification': {
+//       // verify Events API endpoint by returning challenge if present
+//       res.send({ challenge: req.body.challenge });
+//       break;
+//     }
+
+//     case 'event_callback': {
+//       // Verify the signing secret
+//       if (!signature.isVerified(req)) {
+//         res.sendStatus(404);
+//         return;
+//       }
+
+//       // Request is verified --
+//       else {
+
+//         const { type, user, channel, tab, text, subtype } = req.body.event;
+
+//         // Triggered when the App Home is opened by a user
+//         if (type === 'app_home_opened') {
+//           // Display App Home
+
+//           try {
+//             const args = {
+//               token: process.env.SLACK_BOT_TOKEN,
+//               user_id: user,
+//               view: {
+//                 "type": "home",
+//                 "blocks": [
+//                   {
+//                     "type": "section",
+//                     "text": {
+//                       "type": "mrkdwn",
+//                       "text": "A simple stack of blocks for the simple sample Block Kit Home tab."
+//                     }
+//                   },
+//                   {
+//                     "type": "actions",
+//                     "elements": [
+//                       {
+//                         "type": "button",
+//                         "text": {
+//                           "type": "plain_text",
+//                           "text": "Action A",
+//                           "emoji": true
+//                         }
+//                       },
+//                       {
+//                         "type": "button",
+//                         "text": {
+//                           "type": "plain_text",
+//                           "text": "Action B",
+//                           "emoji": true
+//                         }
+//                       }
+//                     ]
+//                   }
+//                 ]
+//               }
+//             }
+
+//             await axios.post("https://slack.com/api/views.publish", qs.stringify(args));
+
+//           } catch (e) {
+//             console.log(e + "wtf is wrong");
+//           }
+//         }
+//       }
+//       break;
+//     }
+//     default: { res.sendStatus(404); }
+//   }
+// });
 
 // start the server listening for requests
 app.listen(process.env.PORT || 3000,
