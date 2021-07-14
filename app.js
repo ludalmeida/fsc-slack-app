@@ -158,22 +158,22 @@ app.post('/slack/events', async (req, res) => {
         // Triggered when the App Home is opened by a user
         if (type === 'app_home_opened') {
           // Display App Home
-          const args = {
-            token: process.env.SLACK_BOT_TOKEN,
-            user_id: user,
-            view: homeTab
-          };
+          // const args = {
+          //   token: process.env.SLACK_BOT_TOKEN,
+          //   user_id: user,
+          //   view: homeTab
+          // };
         
-          const result = await axios.post(`${apiUrl}/views.publish`, qs.stringify(args));
+          // const result = await axios.post(`${apiUrl}/views.publish`, qs.stringify(args));
         
-          try {
-            if(result.data.error) {
-              // console.log(result.data.error);
-              console.log("There is something wrong wtf urgh");
-            }
-          } catch(e) {
-            console.log(e);
-          }
+          // try {
+          //   if(result.data.error) {
+          //     // console.log(result.data.error);
+          //     console.log("There is something wrong wtf urgh");
+          //   }
+          // } catch(e) {
+          //   console.log(e);
+          // }
         }
       }
       break;
