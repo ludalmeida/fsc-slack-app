@@ -158,6 +158,8 @@ app.post('/slack/events', async (req, res) => {
         // Triggered when the App Home is opened by a user
         if (type === 'app_home_opened') {
           // Display App Home
+
+          console.log("HOME TAB WAS CLICKED YEAH")
           // const args = {
           //   token: process.env.SLACK_BOT_TOKEN,
           //   user_id: user,
