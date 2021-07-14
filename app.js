@@ -13,42 +13,9 @@ var jsonParser = bodyParser.json()
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({ extended: true }))
 
+const apiUrl = 'https://slack.com/api';
+
 const homeTab = require("./views/homeTab");
-const appHome = require('./appHome');
-
-
-// concierge org 62 org
-
-// var customerOrgId = "00D70000000Jxye";
-// var customerButtonId = "5734u000000wk2s";
-// var customerDeploymentId = "5724u000000sXtR";
-// var customerApiVersion = 50;
-// var customerLiveAgentHost = "https://d.la2-c2-ia4.salesforceliveagent.com";
-// var slackBotToken = "xoxb-1902642523590-1894661354551-ZenioMxLGfZUlb2c4Q3jmYfj"; // bluepanda token
-// var botInitiationText = "hey bot";
-// var botEndText = "end";
-
-// work.com blitz jagadeesh org
-
-// var customerOrgId = "00D180000002n4D";
-// var customerButtonId = "57318000000012F";
-// var customerDeploymentId = "5721D000000CgOx";
-// var customerApiVersion = 50;
-// var customerLiveAgentHost = "https://d.la4-c1cs-phx.salesforceliveagent.com";
-// var slackBotToken = "xoxb-1902642523590-1894661354551-ZenioMxLGfZUlb2c4Q3jmYfj"; // concierge app token
-// var botInitiationText = "hey bot";
-// var botEndText = "end";
-
-// Gus DE Org
-
-// var customerOrgId = "00D5e000001N1pB"; //old
-// var customerButtonId = "5735e000000MNFi"; //old
-// var customerDeploymentId = "5725e000000MMGe"; //old
-// var customerApiVersion = 52;
-// var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com/chat"; //old
-// var slackBotToken = "xoxb-2250368327255-2250462246311-6nulpaTEmTGT2qK1p62NBvMa"; // Denise QM Slack app token
-// var botInitiationText = "hi";
-// var botEndText = "end";
 
 // Ludmyla's einstein bot from Jenna's account
 
@@ -60,19 +27,6 @@ var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com"; // n
 var slackBotToken = "xoxb-2250368327255-2250462246311-JuvRYDdoxVnPapOrOKvapcEe"; // Ludmyla's app token
 var botInitiationText = "hi";
 var botEndText = "end";
-
-
-// Ludmyla's bot from my account 
-
-// var customerOrgId = "00D5e000002G70v"; // FSC Einstein Bot
-// var customerButtonId = "5735e000000l4F6"; // FSC Einstein Bot
-// var customerDeploymentId = "5725e000000l3au"; // FSC Einstein Bot
-// var customerApiVersion = 50;
-// var customerLiveAgentHost = "https://d.la4-c1-ia4.salesforceliveagent.com"; // new
-// var slackBotToken = "xoxb-2250368327255-2250462246311-JuvRYDdoxVnPapOrOKvapcEe"; // Ludmyla's app token
-// var botInitiationText = "hey bot";
-// var botEndText = "end";
-
 
 var orgCommunityUrl = "https://botpilotsb-ewecitscr6.cs23.force.com/sample/s/article/";
 
@@ -204,7 +158,21 @@ app.post('/slack/events', async (req, res) => {
         // Triggered when the App Home is opened by a user
         if (type === 'app_home_opened') {
           // Display App Home
-          appHome.displayHome(user);
+          const args = {
+            token: process.env.SLACK_BOT_TOKEN,
+            user_id: user,
+            view: homeTab
+          };
+        
+          const result = await axios.post(`${apiUrl}/views.publish`, qs.stringify(args));
+        
+          try {
+            if(result.data.error) {
+              console.log(result.data.error);
+            }
+          } catch(e) {
+            console.log(e);
+          }
         }
       }
       break;
