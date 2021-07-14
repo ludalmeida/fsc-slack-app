@@ -168,7 +168,8 @@ app.post('/slack/events', async (req, res) => {
         
           try {
             if(result.data.error) {
-              console.log(result.data.error);
+              // console.log(result.data.error);
+              console.log("There is something wrong wtf urgh");
             }
           } catch(e) {
             console.log(e);
