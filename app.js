@@ -159,52 +159,48 @@ app.post('/slack/events', async (req, res) => {
         if (type === 'app_home_opened') {
           // Display App Home
 
-          const args = {
-            token: process.env.SLACK_BOT_TOKEN,
-            user_id: user,
-            view: {
-              "type":"home",
-              "blocks":[
-                 {
-                    "type":"section",
-                    "text":{
-                       "type":"mrkdwn",
-                       "text":"A simple stack of blocks for the simple sample Block Kit Home tab."
-                    }
-                 },
-                 {
-                    "type":"actions",
-                    "elements":[
-                       {
-                          "type":"button",
-                          "text":{
-                             "type":"plain_text",
-                             "text":"Action A",
-                             "emoji":true
-                          }
-                       },
-                       {
-                          "type":"button",
-                          "text":{
-                             "type":"plain_text",
-                             "text":"Action B",
-                             "emoji":true
-                          }
-                       }
-                    ]
-                 }
-              ]
-           }
-          };
-        
-          const result = await axios.post(`${apiUrl}/views.publish`, qs.stringify(args));
-        
           try {
-            if(result.data.error) {
-              // console.log(result.data.error);
-              console.log("There is something wrong wtf urgh");
-            }
-          } catch(e) {
+            const args = {
+              token: process.env.SLACK_BOT_TOKEN,
+              user_id: user,
+              view: {
+                "type": "home",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "A simple stack of blocks for the simple sample Block Kit Home tab."
+                    }
+                  },
+                  {
+                    "type": "actions",
+                    "elements": [
+                      {
+                        "type": "button",
+                        "text": {
+                          "type": "plain_text",
+                          "text": "Action A",
+                          "emoji": true
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "text": {
+                          "type": "plain_text",
+                          "text": "Action B",
+                          "emoji": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            };
+
+            await axios.post(`${apiUrl}/views.publish`, qs.stringify(args));
+
+          } catch (e) {
             console.log(e);
           }
         }
