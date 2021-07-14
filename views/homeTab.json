@@ -1,142 +1,191 @@
-[
-    {
-        "type": "header",
-        "text": {
-            "type": "plain_text",
-            "text": ":wave: Welcome, Jennifer! Let's get started...",
-            "emoji": true
-        }
-    },
-    {
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": "Hey there! Good to see you here, Slack for CIB helps you get rich information from your Salesforce org. Start by connecting to your Salesforce account first."
-        }
-    },
-    {
-        "type": "actions",
-        "elements": [
-            {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "Connect to Salesforce",
-                    "emoji": true
-                },
-                "style": "primary",
-                "value": "connect_salesforce",
-                "action_id": "connect_salesforce"
-            }
-        ]
-    },
-    {
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": "<https://google.com|Or, connect to a sandbox instead>"
-        }
-    },
-    {
-        "type": "divider"
-    },
-    {
-        "type": "header",
-        "text": {
-            "type": "plain_text",
-            "text": "What can you do with Slack + Financial Services Cloud?",
-            "emoji": true
-        }
-    },
-    {
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": ":package: View account details"
-        }
-    },
-    {
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": ":handshake: see past interactions"
-        }
-    },
-    {
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": ":alarm_clock: Get reminders for logging interaction summaries"
-        }
-    },
-    {
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": ":calendar: Log interaction summaries"
-        }
-    },
-    {
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": ":car: Get driving directions to your meeting location"
-        }
-    },
-    {
-        "type": "divider"
-    },
-    {
-        "type": "header",
-        "text": {
-            "type": "plain_text",
-            "text": "More",
-            "emoji": true
-        }
-    },
-    {
-        "type": "actions",
-        "elements": [
-            {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "Getting Started",
-                    "emoji": true
-                },
-                "value": "getting_started",
-                "action_id": "getting_started"
-            },
-            {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "Open Salesforce",
-                    "emoji": true
-                },
-                "value": "open_salesforce",
-                "action_id": "open_salesforce"
-            },
-            {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "Help & Settings",
-                    "emoji": true
-                },
-                "value": "help_settings",
-                "action_id": "help_settings"
-            },
-            {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "Learn More",
-                    "emoji": true
-                },
-                "value": "learn_more",
-                "action_id": "learn_more"
-            }
-        ]
-    }
-]
+{
+	"type": "home",
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "👋 Hi there! Here are some quick tips to get you started"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":link: Connect your Health Cloud account",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Connect your Health Cloud account\n<www.salesforce.com|Connect to a Health Cloud sandbox org?>"
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Connect Account",
+					"emoji": true
+				},
+				"style": "primary",
+				"value": "create_task",
+        "action_id": "connect_to_salesforce"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":calendar: Today’s Appointments",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Your appointments for today will show up here once your Health Cloud account is connected."
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":checkmark: Today’s Tasks",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Your tasks for today will show up here once your Health Cloud account is connected."
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":speech_balloon: App Commands",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "View patient tasks: `/sf-health patient tasks`"
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Start Command",
+					"emoji": true
+				},
+				"value": "click_me_123",
+				"action_id": "start_command_patient_tasks"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "View patient summary: `/sf-health patient summary`"
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Start Command",
+					"emoji": true
+				},
+				"value": "click_me_123",
+				"action_id": "button-action"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "View patient appointments: `/sf-health patient appointments`"
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Start Command",
+					"emoji": true
+				},
+				"value": "click_me_123",
+				"action_id": "button-action"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":gear: Basics and Help",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "You can type `/sf-health help` or `/sf-health commands` to see a list of commands at any time"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Help Center*\nGet more help, and get in touch. "
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Visit Help Center",
+					"emoji": true
+				},
+				"value": "click_me_123",
+				"action_id": "button-action"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*User Settings*\nView and manage your user settings."
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "View User Settings",
+					"emoji": true
+				},
+				"value": "click_me_123",
+				"action_id": "button-action"
+			}
+		}
+	]
+}
